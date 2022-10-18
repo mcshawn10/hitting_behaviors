@@ -1,13 +1,14 @@
 
 import cv2
 from deepface import DeepFace
+from rescale_frame import rescale_frame
 
 
 class FaceDetection:
 
-    def __init__(self, path):
+    def __init__(self):
         self.faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-        self.path = path
+       # self.path = path
         #assertIsInstance(self.faceCascade)
 
 
