@@ -5,9 +5,9 @@ from deepface import DeepFace
 
 class FaceDetection:
 
-    def __init__(self):
+    def __init__(self, path):
         self.faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-
+        self.path = path
         #assertIsInstance(self.faceCascade)
 
 
