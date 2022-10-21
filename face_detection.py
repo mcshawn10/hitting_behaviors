@@ -6,25 +6,26 @@ from rescale_frame import rescale_frame
 
 class FaceDetection:
 
-    def __init__(self):
+    def __init__(self, path):
         self.faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-       # self.path = path
+        self.path = path
         #assertIsInstance(self.faceCascade)
 
+    
 
     def run_camera(self):
 
-        cap = cv2.VideoCapture(1)
+        cap = cv2.VideoCapture(self.path)
 
-        if not cap.isOpened():
-            cap = cv2.VideoCapture(0)
-        if not cap.isOpened():
-            raise IOError("cannot open webcam")
+        # if not cap.isOpened():
+        #     cap = cv2.VideoCapture(0)
+        # if not cap.isOpened():
+        #     raise IOError("cannot open webcam")
 
         while True:
 
             ret, frame = cap.read()
-
+            frame = rescale_frame(frame, 50)
             result = DeepFace.analyze(frame, enforce_detection=False, actions=["emotion"])
 
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -46,7 +47,7 @@ class FaceDetection:
                         cv2.LINE_4)
             cv2.imshow('original video', frame)
 
-            if cv2.waitKey(2) & 0xFF == ord('q'):
+            if cv2.waitKey(5) & 0xFF == 27:
                 break
         cap.release()
         cv2.destroyAllWindows()
@@ -55,7 +56,7 @@ class FaceDetection:
 
 
 def main():
-    test = FaceDetection()
+    test = FaceDetection(r"video_data/back_hit.mp4")
     test.run_camera()
 
 
