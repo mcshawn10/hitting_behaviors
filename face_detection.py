@@ -26,7 +26,7 @@ class FaceDetection:
 
             ret, frame = cap.read()
             frame = rescale_frame(frame, 50)
-            result = DeepFace.analyze(frame, enforce_detection=False, actions=["emotion"])
+            result = DeepFace.analyze(frame, enforce_detection=False, actions=['emotion'])
 
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -37,11 +37,13 @@ class FaceDetection:
                 cv2.rectangle(frame, (x,y), (x+w, y+h), (0,255,0), 2)
 
             font = cv2.FONT_HERSHEY_SIMPLEX
-
+            # emotions = result['emotion'] #dict of all the emotions
+            # sad = emotions["sad"]
+            # sad = str(sad)
             cv2.putText(frame, 
-                        result['dominant_emotion'], 
+                        result["dominant_emotion"], 
                         (50,50),
-                        font, 3,
+                        font, 2,
                         (0,0,255),
                         2,
                         cv2.LINE_4)
