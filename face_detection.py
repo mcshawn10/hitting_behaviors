@@ -25,6 +25,7 @@ class FaceDetection:
         while True:
 
             ret, frame = cap.read()
+            assert(ret)
             frame = rescale_frame(frame, 50)
             result = DeepFace.analyze(frame, enforce_detection=False, actions=['emotion'])
 
