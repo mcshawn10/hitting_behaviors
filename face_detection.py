@@ -60,6 +60,8 @@ class FaceDetection:
 
 def main():
     test = FaceDetection(r"video_data/back_hit.mp4")
+
+    
     test.run_camera()
 
 
