@@ -1,0 +1,13 @@
+
+issues so far:
+- loading dataset
+- proper input shape 
+- memory problem
+- overfitting
+
+how did you solve:
+- used work arounds 
+- had to rebuild model with proper input 
+- regularization
+- dropout: 0.2 -> 0.4
+- validation set
