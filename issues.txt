@@ -11,3 +11,4 @@ how did you solve:
 - regularization
 - dropout: 0.2 -> 0.4
 - validation set
+- fine tuning, callbacks
