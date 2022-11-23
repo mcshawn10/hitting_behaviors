@@ -28,10 +28,6 @@ class PoseDetection:
       # new_width = width//2
       # new_height = height//2
 
-      
-      
-      
-      
       assert cap.isOpened()
       with mp_pose.Pose(
         min_detection_confidence=0.6,
