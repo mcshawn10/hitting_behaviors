@@ -63,11 +63,11 @@ class FaceDetection:
                         cv2.LINE_4)
             cv2.imshow('original video', frame)
 
-            emo = result["dominant_emotion"]
-            all_emotions[emo].append(1)
-            for i in all_emotions.items:
-                if i != emo:
-                    all_emotions[i].append(0)
+            # emo = result["dominant_emotion"]
+            # all_emotions[emo].append(1)
+            # for i in all_emotions.items:
+            #     if i != emo:
+            #         all_emotions[i].append(0)
                 
             if cv2.waitKey(5) & 0xFF == 27:
                 break
@@ -76,11 +76,11 @@ class FaceDetection:
         cap.release()
         cv2.destroyAllWindows()
 
-        print(all_emotions)
+        
 
-        df = pd.DataFrame.from_dict(all_emotions)
+        # df = pd.DataFrame.from_dict(all_emotions)
 
-        print(df.head())
+        # print(df.head())
 
 
 
