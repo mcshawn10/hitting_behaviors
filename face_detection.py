@@ -2,6 +2,8 @@
 import cv2
 from deepface import DeepFace
 from rescale_frame import rescale_frame
+import pandas as pd
+import numpy as np
 
 
 class FaceDetection:
@@ -16,17 +18,28 @@ class FaceDetection:
     def run_camera(self):
 
         cap = cv2.VideoCapture(self.path)
-
+        total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+        print(total_frames)
         # if not cap.isOpened():
         #     cap = cv2.VideoCapture(0)
         # if not cap.isOpened():
         #     raise IOError("cannot open webcam")
 
-        while True:
+        all_emotions = {"angry":[],
+                        "disgust":[],
+                        "fear":[],
+                        "happy":[],
+                        "sad":[],
+                        "surprise":[],
+                        "neutral":[]}
 
-            ret, frame = cap.read()
-            assert(ret)
-            frame = rescale_frame(frame, 50)
+        while cap.isOpened():
+            current_frame = cap.get(cv2.CAP_PROP_POS_FRAMES)
+            success, frame = cap.read()
+
+            if not success: break
+            #assert(success)
+            frame = rescale_frame(frame, 30)
             result = DeepFace.analyze(frame, enforce_detection=False, actions=['emotion'])
 
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -50,16 +63,30 @@ class FaceDetection:
                         cv2.LINE_4)
             cv2.imshow('original video', frame)
 
+            emo = result["dominant_emotion"]
+            all_emotions[emo].append(1)
+            for i in all_emotions.items:
+                if i != emo:
+                    all_emotions[i].append(0)
+                
             if cv2.waitKey(5) & 0xFF == 27:
                 break
+
+
         cap.release()
         cv2.destroyAllWindows()
+
+        print(all_emotions)
+
+        df = pd.DataFrame.from_dict(all_emotions)
+
+        print(df.head())
 
 
 
 
 def main():
-    test = FaceDetection(r"video_data/back_hit.mp4")
+    test = FaceDetection("video_data/back_hit.mp4")
 
     
     test.run_camera()
